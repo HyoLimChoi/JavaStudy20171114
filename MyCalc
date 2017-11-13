@@ -1,0 +1,137 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class MyCalc extends JFrame{
+	JTextField input = new JTextField();
+	JButton[] calc1=new JButton[16];
+	final String[] number = {"7","8","9","+","4","5","6","-","1","2","3","*","C","0","=","/"};
+	JLabel name = new JLabel("동양미래대 컴퓨터소프트웨어공학과");
+	
+	int result=0;
+	
+	String tempchar="";
+	String tempchar2="";
+	int tempNum=0;
+	int tempNum2=0;
+	
+	public MyCalc() {
+		super("계산기");
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(300,380);
+		setLayout(new BorderLayout(10,10));
+		
+		add(input,BorderLayout.NORTH);
+		
+		add(new CalcButton(),BorderLayout.CENTER);
+		name.setHorizontalAlignment(JLabel.CENTER);
+		add(name,BorderLayout.SOUTH);
+	}
+	
+	class CalcButton extends JPanel{
+		
+		public CalcButton() {
+			setLayout(new GridLayout(4,4,1,5));
+		
+			
+			
+			for(int i=0;i<calc1.length;i++) {
+				calc1[i]=new JButton(number[i]);
+				add(calc1[i]);	
+
+				
+			
+				calc1[i].addActionListener(new ActionListener() {					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						JButton temp  = (JButton)e.getSource();	
+						String in=temp.getText();
+						
+						
+
+						if(in=="0" || in=="1" || in=="2" || in=="3" || in=="4" ||in=="5" ||in=="6" ||in=="7" ||in=="8" ||in=="9"){
+							tempchar+=in;
+							input.setText(tempchar);//화면에 나오는 칸
+						}
+						else {		
+							
+							if(in=="C")
+							{
+								result=0;
+								input.setText(" "); 
+							}
+							else {
+								tempNum=Integer.parseInt(tempchar);
+								tempchar="";
+								input.setText(" ");//화면에 나오는 칸
+							}
+							
+							if(in=="+") {	
+								tempNum2=tempNum;
+								tempchar2="+";
+							}
+							else if(in=="-") {
+								tempNum2=tempNum;
+								tempchar2="-";
+							}
+							else if(in=="/") {
+								tempNum2=tempNum;
+								tempchar2="/";
+							}
+							else if(in=="*") {
+								tempNum2=tempNum;
+								tempchar2="/";
+							}	
+							
+							if(in=="=") {
+								if(tempchar2=="+") {	
+									result=tempNum+tempNum2;
+								}
+								else if(tempchar2=="-") {
+									result=tempNum2-tempNum;				
+								}
+								else if(tempchar2=="/") {
+									result=tempNum2/tempNum;	
+								}
+								else if(tempchar2=="*") {
+									result=tempNum2*tempNum;									
+								}	
+								System.out.println("결과.."+result);
+								
+								input.setText(String.valueOf(result));
+								tempNum=result;
+								result=0;
+							}
+							
+						}						
+					}
+				});
+			}
+						
+			calc1[3].setForeground(Color.BLUE); // +버튼 색 조정
+			calc1[7].setForeground(Color.BLUE); // -버튼 색 조정
+			calc1[11].setForeground(Color.BLUE); // *버튼 색 조정
+			calc1[14].setForeground(Color.BLUE); // =버튼 색 조정
+			calc1[15].setForeground(Color.BLUE); // /버튼 색 조정
+			calc1[12].setForeground(Color.RED); // C버튼 색 조정
+		}
+	}
+	
+
+
+
+
+	public static void main(String[] args) {
+		new MyCalc();	
+	}//end of main
+}//end of class 
