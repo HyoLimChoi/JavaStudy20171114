@@ -1,0 +1,167 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Calculator extends JFrame{
+	JTextField input = new JTextField();
+	JButton[] calc1=new JButton[12];
+	JButton[] calc2=new JButton[4];
+	final String[] number = {"7","8","9","4","5","6","1","2","3","C","0","="};
+	final String[] number2 = {"+","-","*","/"};
+	JLabel name = new JLabel("동양미래대 컴퓨터소프트웨어공학과");
+	
+	int result=0;
+	
+	String tempchar="";
+	String tempchar2="";
+	int tempNum=0;
+	int tempNum2=0;
+	
+	
+	Container c= new JPanel();
+	public Calculator() {
+		super("계산기");
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(300,380);
+		setLayout(new BorderLayout(5,5));
+		
+		c=getContentPane();
+		
+		c.add(input,BorderLayout.NORTH);
+		
+		c.add(new CalcButton(),BorderLayout.CENTER);
+		c.add(new CalcButton2(),BorderLayout.EAST);
+		
+		name.setHorizontalAlignment(JLabel.CENTER);
+		c.add(name,BorderLayout.SOUTH);
+	}
+	
+	class CalcButton extends JPanel{
+		
+		public CalcButton() {
+			setLayout(new GridLayout(4,4,1,5));
+		
+			
+			
+			for(int i=0;i<calc1.length;i++) {
+				calc1[i]=new JButton(number[i]);
+				add(calc1[i]);				
+				calc1[i].addActionListener(new ActionListener() {					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						JButton temp  = (JButton)e.getSource();	
+						String in=temp.getText();
+						
+						
+
+						if(in=="0" || in=="1" || in=="2" || in=="3" || in=="4" ||in=="5" ||in=="6" ||in=="7" ||in=="8" ||in=="9"){
+							tempchar+=in;
+							input.setText(tempchar);//화면에 나오는 칸
+						}
+						else {		
+							
+							if(in=="C"){
+								result=0;
+								input.setText(" "); 
+							}
+							else if(in=="=") {
+								if(tempchar2=="+") {	
+									result=tempNum+tempNum2;
+								}
+								else if(tempchar2=="-") {
+									result=tempNum2-tempNum;				
+								}
+								else if(tempchar2=="/") {
+									result=tempNum2/tempNum;	
+								}
+								else if(tempchar2=="*") {
+									result=tempNum2*tempNum;									
+								}	
+								System.out.println("결과.."+result);
+								
+								input.setText(String.valueOf(result));
+								tempNum=result;
+								result=0;
+							}
+							
+						
+							
+						}						
+					}
+				});
+			}
+						
+			
+			calc1[11].setForeground(Color.BLUE); // =버튼 색 조정
+			calc1[9].setForeground(Color.RED); // C버튼 색 조정 
+		}
+	}
+	
+
+	class CalcButton2 extends JPanel{
+		public CalcButton2() {			
+			setLayout(new GridLayout(4, 0,3,5));
+		
+			for(int i=0;i<calc2.length;i++) {
+				calc2[i]=new JButton(number2[i]);
+				add(calc2[i]);
+				calc2[i].addActionListener(new ActionListener() {					
+					@Override
+					public void actionPerformed(ActionEvent e) {						
+						JButton temp  = (JButton)e.getSource();	
+						String in=temp.getText();	
+									
+							
+								tempNum=Integer.parseInt(tempchar);
+								tempchar="";
+								input.setText(" ");//화면에 나오는 칸
+							
+							
+							if(in=="+"){	
+								tempNum2=tempNum;
+								tempchar2="+";
+							}
+							else if(in=="-"){
+								tempNum2=tempNum;
+								tempchar2="-";
+							}
+							else if(in=="/"){
+								tempNum2=tempNum;
+								tempchar2="/";
+							}
+							else if(in=="*"){
+								tempNum2=tempNum;
+								tempchar2="/";
+							}	
+							
+							
+							
+												
+					}
+				});
+				calc2[i].setForeground(Color.BLUE); // +버튼 색 조정
+			}
+			
+			
+
+		}
+	}
+
+
+
+	public static void main(String[] args) {
+		new Calculator();	
+	}//end of main
+	
+}//end of class 
