@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Calculator extends JFrame{
+public class tempCalc extends JFrame{
 	JTextField input = new JTextField();
 	JButton[] calc1=new JButton[12];
 	JButton[] calc2=new JButton[4];
@@ -28,22 +28,22 @@ public class Calculator extends JFrame{
 	
 	
 	Container c= new JPanel();
-	public Calculator() {
+	public tempCalc() {
 		super("계산기");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300,380);
 		setLayout(new BorderLayout(5,5));
 		
-		c=getContentPane();
+		//c=getContentPane();
 		
-		c.add(input,BorderLayout.NORTH);
+		add(input,BorderLayout.NORTH);
 		
-		c.add(new CalcButton(),BorderLayout.CENTER);
-		c.add(new CalcButton2(),BorderLayout.EAST);
+		add(new CalcButton(),BorderLayout.CENTER);
+		add(new CalcButton2(),BorderLayout.EAST);
 		
 		name.setHorizontalAlignment(JLabel.CENTER);
-		c.add(name,BorderLayout.SOUTH);
+		add(name,BorderLayout.SOUTH);
 	}
 	
 	class CalcButton extends JPanel{
@@ -64,19 +64,28 @@ public class Calculator extends JFrame{
 						String in=temp.getText();
 						
 						
-
+						/*입력받은 버튼이 숫자 몇인지 확인*/
 						if(in=="0" || in=="1" || in=="2" || in=="3" || in=="4" ||in=="5" ||in=="6" ||in=="7" ||in=="8" ||in=="9"){
-							tempchar+=in;
+							tempchar+=in; //입력 수 확인 십의자리수도 나옴
 							input.setText(tempchar);//화면에 나오는 칸
+							tempNum=Integer.parseInt(tempchar);
+							System.out.println(tempNum);
 						}
-						else {		
+						else {//아니면 
 							
 							if(in=="C"){
+								tempNum=0;
+								tempNum2=0;
 								result=0;
+								tempchar="\0";
+								tempchar2="\0";
 								input.setText(" "); 
+								System.out.println("수 초기화!");
 							}
-							else if(in=="=") {
+							else if(in=="=") { //결과 출력이면
 								if(tempchar2=="+") {	
+									System.out.println("처음 수 : " + tempNum);
+									System.out.println("다음 수 : " + tempNum2);
 									result=tempNum+tempNum2;
 								}
 								else if(tempchar2=="-") {
@@ -127,21 +136,25 @@ public class Calculator extends JFrame{
 								tempchar="";
 								input.setText(" ");//화면에 나오는 칸
 							
-							
+								
 							if(in=="+"){	
 								tempNum2=tempNum;
+								System.out.println(tempNum2);
 								tempchar2="+";
 							}
 							else if(in=="-"){
 								tempNum2=tempNum;
+								System.out.println(tempNum2);
 								tempchar2="-";
 							}
 							else if(in=="/"){
 								tempNum2=tempNum;
+								System.out.println(tempNum2);
 								tempchar2="/";
 							}
 							else if(in=="*"){
 								tempNum2=tempNum;
+								System.out.println(tempNum2);
 								tempchar2="/";
 							}	
 							
@@ -161,7 +174,7 @@ public class Calculator extends JFrame{
 
 
 	public static void main(String[] args) {
-		new Calculator();	
+		new tempCalc();	
 	}//end of main
 	
 }//end of class 
