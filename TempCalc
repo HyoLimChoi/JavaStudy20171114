@@ -68,6 +68,7 @@ public class tempCalc extends JFrame{
 						if(in=="0" || in=="1" || in=="2" || in=="3" || in=="4" ||in=="5" ||in=="6" ||in=="7" ||in=="8" ||in=="9"){
 							tempchar+=in; //입력 수 확인 십의자리수도 나옴
 							input.setText(tempchar);//화면에 나오는 칸
+							
 							tempNum=Integer.parseInt(tempchar);
 							System.out.println(tempNum);
 						}
@@ -77,8 +78,8 @@ public class tempCalc extends JFrame{
 								tempNum=0;
 								tempNum2=0;
 								result=0;
-								tempchar="\0";
-								tempchar2="\0";
+								tempchar="";
+								tempchar2="";
 								input.setText(" "); 
 								System.out.println("수 초기화!");
 							}
