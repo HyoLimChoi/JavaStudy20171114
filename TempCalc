@@ -35,12 +35,13 @@ public class tempCalc extends JFrame{
 		setSize(300,380);
 		setLayout(new BorderLayout(5,5));
 		
-		//c=getContentPane();
+		CalcButton numBtn =new CalcButton();
+		CalcButton2 calcBtn =new CalcButton2();
 		
 		add(input,BorderLayout.NORTH);
 		
-		add(new CalcButton(),BorderLayout.CENTER);
-		add(new CalcButton2(),BorderLayout.EAST);
+		add(numBtn,BorderLayout.CENTER);
+		add(calcBtn,BorderLayout.EAST);
 		
 		name.setHorizontalAlignment(JLabel.CENTER);
 		add(name,BorderLayout.SOUTH);
